@@ -1,9 +1,5 @@
 <template>
-    <el-tree :data="menus" 
-    :props="defaultProps" 
-    :expand-on-click-node="false" 
-    show-checkbox 
-    node-key="catId">
+    <el-tree :data="menus" :props="defaultProps" :expand-on-click-node="false" show-checkbox node-key="catId">
         <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
             <span>
@@ -21,6 +17,8 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具 js，第三方插件 js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
+
+import Vue from "vue";
 
 export default {
     //import 引入的组件需要注入到对象中才能使用
@@ -54,7 +52,16 @@ export default {
         },
 
         remove(node, data) {
-            console.log("delete", node, data);
+            var ids = [data.catId];
+            this.$http({
+                url: this.$http.adornUrl("/product/category/delete"),
+                method: "post",
+                data: this.$http.adornData(ids, false)
+            }).then(({data}) => {
+                console.log("删除成功");
+                this.getMenus();
+            });
+
         }
     },
     //生命周期 - 创建完成（可以访问当前 this 实例）
