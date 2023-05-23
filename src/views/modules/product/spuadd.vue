@@ -354,7 +354,7 @@ import elDivider from '@/element-ui'
 
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: { CategoryCascader, BrandSelect, MultiUpload },
+  components: { CategoryCascader, BrandSelect, MultiUpload, elDivider },
   props: {},
   data() {
     return {
